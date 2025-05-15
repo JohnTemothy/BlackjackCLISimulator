@@ -3,21 +3,24 @@ package com.blackjack.models;
 import java.util.List;
 
 public class Player {
+
     private List<Card> hand;
     private String name;
     private boolean cpu;
-    
+
     public Player(final String name, final boolean cpu) {
         this.name = name;
         this.cpu = cpu;
     }
 
-    /*
-     * TODO: How can we check if a player is bust?
+    /**
+     * Checks if the player's hand has exceeded value of 21 (bust).
+     *
+     * @return True if bust
      */
     public boolean isBust() {
         int valueCount = 0;
-        for (Card c: hand) {
+        for (Card c : hand) {
             valueCount = valueCount + c.getRank().getValue();
         }
         return valueCount > 21;

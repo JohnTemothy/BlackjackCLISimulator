@@ -2,10 +2,10 @@ package com.blackjack.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class PlayerList {
-    private List<Player> players;
+
+    private final List<Player> players;
 
     public PlayerList() {
         players = new ArrayList<>();
@@ -14,22 +14,26 @@ public class PlayerList {
     public void addPlayer(final Player player) {
         players.add(player);
     }
-    
-    /*
-     * How can we deal 2 cards to all players?
+
+    /**
+     * Deals to 2 cards to all players.
+     *
+     * Iterates through the player list, giving 2 cards to each.
+     *
+     * @param shoe The deck of cards to deal from
+     * @throws IllegalStateException if not enough cards to deal
      */
     public void dealCards(final Shoe shoe) {
-        // Hint: Use player.giveCard()
-        ListIterator<Player> playerIterator = players.listIterator();
+        int noCards = shoe.getNoCards();
+        int playerCount = players.size();
 
+        if (2 * playerCount <= noCards) {
+            throw new IllegalStateException("Not enough cards to deal");
+        }
 
-        for (Player p: players) {
-            //i cant find what the deck value is
-            if (Shoe.size() >= 2) {
-                p.hand.giveCard();
-                p.hand.giveCard();
-            }
- ....
+        for (Player p : players) {
+            p.giveCard(shoe.draw());
+            p.giveCard(shoe.draw());
         }
     }
 }
