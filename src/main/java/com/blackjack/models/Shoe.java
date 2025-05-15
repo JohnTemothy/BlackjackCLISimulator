@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Shoe {
-    private List<Card> cards;
-    
+
+    private final List<Card> cards;
+
     /*
      * TODO: How can we set up the shoe with any number of decks?
      * 
@@ -16,9 +17,9 @@ public class Shoe {
         cards = new ArrayList<>();
         for (int i = 0; i < numDecks; i++) {
 
-            for (Suit s: Suit.values()) {
+            for (Suit s : Suit.values()) {
 
-                for (Rank r: Rank.values()){
+                for (Rank r : Rank.values()) {
                     cards.add(new Card(s, r));
 
                 }
@@ -30,20 +31,7 @@ public class Shoe {
      * TODO: Shuffle the deck, call this method after initializing the deck
      */
     public void shuffle() {
-        int numberOfCards = cards.size();
-        int numberOfLoops = (int)(Math.random() * (numberOfCards*2));
-        for (int i = 0; i < numberOfLoops; i++) {
-            int randomNumber1 = (int)(Math.random() * (numberOfCards + 1));
-            int randomNumber2 = (int)(Math.random() * (numberOfCards + 1));
-            try {
-                Collections.swap(cards, randomNumber1,  randomNumber2);
-                
-            } finally {
-                //just here so theres no error ig
-            }
-            
-        }
-
+        Collections.shuffle(cards);
     }
 
     /*
@@ -51,13 +39,17 @@ public class Shoe {
      * This involves removing it and returning it
      */
     public Card draw() {
-        
-        return null;
+        return cards.remove(0);
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        cards.stream().forEach(card -> builder.append(card + "\n"));
+        cards.stream().forEach(card -> builder.append(card).append("\n"));
         return builder.toString();
+    }
+
+    public int getNoCards() {
+        return cards.size();
     }
 }
