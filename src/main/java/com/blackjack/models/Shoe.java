@@ -1,6 +1,7 @@
 package com.blackjack.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Shoe {
@@ -13,14 +14,35 @@ public class Shoe {
      */
     public Shoe(final int numDecks) {
         cards = new ArrayList<>();
+        for (int i = 0; i < numDecks; i++) {
 
-        cards.add(new Card(Suit.CLUBS, Rank.TWO));
+            for (Suit s: Suit.values()) {
+
+                for (Rank r: Rank.values()){
+                    cards.add(new Card(s, r));
+
+                }
+            }
+        }
     }
 
     /*
      * TODO: Shuffle the deck, call this method after initializing the deck
      */
     public void shuffle() {
+        int numberOfCards = cards.size();
+        int numberOfLoops = (int)(Math.random() * (numberOfCards*2));
+        for (int i = 0; i < numberOfLoops; i++) {
+            int randomNumber1 = (int)(Math.random() * (numberOfCards + 1));
+            int randomNumber2 = (int)(Math.random() * (numberOfCards + 1));
+            try {
+                Collections.swap(cards, randomNumber1,  randomNumber2);
+                
+            } finally {
+                //just here so theres no error ig
+            }
+            
+        }
 
     }
 
@@ -29,6 +51,7 @@ public class Shoe {
      * This involves removing it and returning it
      */
     public Card draw() {
+        
         return null;
     }
 

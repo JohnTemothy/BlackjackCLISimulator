@@ -2,6 +2,7 @@ package com.blackjack.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class PlayerList {
     private List<Player> players;
@@ -19,5 +20,16 @@ public class PlayerList {
      */
     public void dealCards(final Shoe shoe) {
         // Hint: Use player.giveCard()
+        ListIterator<Player> playerIterator = players.listIterator();
+
+
+        for (Player p: players) {
+            //i cant find what the deck value is
+            if (Shoe.size() >= 2) {
+                p.hand.giveCard();
+                p.hand.giveCard();
+            }
+ ....
+        }
     }
 }
