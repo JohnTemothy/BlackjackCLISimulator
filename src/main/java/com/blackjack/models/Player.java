@@ -26,15 +26,18 @@ public class Player {
         return valueCount > 21;
     }
 
+    
     /*
-     * TODO: Write a method to add a given card to each player's hand
+     * Adds a given card to each player's hand
+     * 
+     * @param card item of class "Card" to be added to player's hand (list of type card) 
      */
     public void giveCard(Card card) {
         hand.add(card);
     }
 
     /*
-     * TODO: Write a method to clear a player's hand (e.g. at round end)
+     * Removes all items of type "Card" from the player's hand (list of type card)
      */
     public void clearHand() {
         hand.clear();
