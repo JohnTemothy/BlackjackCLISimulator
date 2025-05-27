@@ -9,9 +9,10 @@ public class Shoe {
     private final List<Card> cards;
 
     /*
-     * TODO: How can we set up the shoe with any number of decks?
+     * Accepts number of decks (numDecks) and adds required cards to the ArrayList cards
+     *
+     * @param numDecks the number of decks to be added to the cards list
      * 
-     * Remember that each deck has 4 Suits * 13 cards
      */
     public Shoe(final int numDecks) {
         cards = new ArrayList<>();
@@ -28,15 +29,15 @@ public class Shoe {
     }
 
     /*
-     * TODO: Shuffle the deck, call this method after initializing the deck
+     * rearranges cards list randomly
      */
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
     /*
-     * TODO: How can we draw the top card of the deck?
-     * This involves removing it and returning it
+     * removes and returns first element of cards list
+     *
      */
     public Card draw() {
         return cards.remove(0);
