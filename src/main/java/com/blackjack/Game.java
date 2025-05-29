@@ -27,9 +27,30 @@ public class Game {
 
     public void startGame() {
         io.println("Welcome to Blackjack");
-
         initGame();
 
         io.println(shoe.toString());
     }
+
+    /* Pseudocode
+     * Dealer = D, Not dealer = ND
+     * give every player 2 cards
+     * Blackjack check for every player
+     * ND: plays turn
+     * Bust/Not Bust Check (if bust, D wins)
+     * ND blackjack check 
+     * 
+     * Blackjack check for D
+     * D: plays turn
+     * Bust/Not Bust Check (if bust, ND wins)
+     * ND blackjack check
+     * 
+     * if both player and dealer blackjack, tie
+     * if ND > dealer, win
+     * if dealer > ND, D win
+     */
+
+
+
+    
 }

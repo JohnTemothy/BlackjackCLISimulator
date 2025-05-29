@@ -36,4 +36,18 @@ public class PlayerList {
             p.giveCard(shoe.draw());
         }
     }
+
+    /*
+     * checks if player has gotten a blackjack (hand value = 21)
+     */
+    public boolean isBlackjackPlayerList(Player player) {
+        return player.isBlackjack();
+    }
+
+    /*
+     * checks if players hand has exceeded value of 21
+     */
+    public boolean isBustPlayerList(Player player) {
+        return player.isBust();
+    }
 }
