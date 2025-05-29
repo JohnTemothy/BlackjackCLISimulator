@@ -26,6 +26,20 @@ public class Player {
         return valueCount > 21;
     }
 
+    /**
+     * Checks if the player's hand has value of 21 (blackjack).
+     *
+     * @return True if blackjack
+     */
+
+     public boolean isBlackjack() {
+        int valueCount = 0;
+        for (Card c : hand) {
+            valueCount = valueCount + c.getRank().getValue();
+        }
+        return valueCount == 21;
+    }
+
     
     /*
      * Adds a given card to each player's hand
