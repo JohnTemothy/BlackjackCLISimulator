@@ -38,16 +38,28 @@ public class PlayerList {
     }
 
     /*
-     * checks if player has gotten a blackjack (hand value = 21)
+     * creates and returns list of players who's hands equal the value of 21 
      */
-    public boolean isBlackjackPlayerList(Player player) {
-        return player.isBlackjack();
+    public List<String> isBlackjackPlayerList() {
+        List<String> blackjackWinners = new ArrayList<String>();
+        for (Player p : players) {
+            if (p.isBlackjack()) {
+                blackjackWinners.add(p.getName());
+            }
+        }
+        return blackjackWinners;
     }
 
     /*
-     * checks if players hand has exceeded value of 21
+     * creates and returns list of players who's hands exceed value of 21 
      */
-    public boolean isBustPlayerList(Player player) {
-        return player.isBust();
+    public List<String> isBustPlayerList() {
+        List<String> bustedPlayers = new ArrayList<String>();
+        for (Player p : players) {
+            if (p.isBust()) {
+                bustedPlayers.add(p.getName());
+            }
+        }
+        return bustedPlayers;
     }
 }
