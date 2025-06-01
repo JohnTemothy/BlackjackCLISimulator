@@ -31,7 +31,6 @@ public class Player {
      *
      * @return True if blackjack
      */
-
      public boolean isBlackjack() {
         int valueCount = 0;
         for (Card c : hand) {
@@ -39,6 +38,18 @@ public class Player {
         }
         return valueCount == 21;
     }
+
+    /**
+     * @return value of player's hand
+     */
+     public int getHandValue() {
+        int valueCount = 0;
+        for (Card c : hand) {
+            valueCount = valueCount + c.getRank().getValue();
+        }
+        return valueCount;
+    }
+    
 
     
     /*

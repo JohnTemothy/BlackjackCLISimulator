@@ -27,7 +27,7 @@ public class PlayerList {
         int noCards = shoe.getNoCards();
         int playerCount = players.size();
 
-        if (2 * playerCount <= noCards) {
+        if (2 * playerCount > noCards) {
             throw new IllegalStateException("Not enough cards to deal");
         }
 
@@ -35,6 +35,40 @@ public class PlayerList {
             p.giveCard(shoe.draw());
             p.giveCard(shoe.draw());
         }
+    }
+
+    /**
+     * Draws card for a given player
+     *
+     * gives one card to a given player.
+     *
+     * @param shoe The deck of cards to deal from
+     * @throws IllegalStateException if not enough cards to deal
+     */
+    public void drawCard(final Shoe shoe, Player player) {
+        int noCards = shoe.getNoCards();
+
+        if (noCards < 1) {
+            throw new IllegalStateException("Not enough cards to deal");
+        }
+
+        player.giveCard(shoe.draw());
+    }
+
+    /**
+     * Iterates through the player list, returning the highest hand value that is not a bust.
+     */
+    public int getHighestHand() {
+        int highestHandValue = 0;
+
+
+        for (Player p : players) {
+            if ((p.getHandValue() > highestHandValue) && (p.isBust() == false)) {
+                highestHandValue = p.getHandValue();
+            }
+        }
+
+        return highestHandValue;
     }
 
     /*
@@ -62,4 +96,11 @@ public class PlayerList {
         }
         return bustedPlayers;
     }
+
+    public List<Player> getPlayerList() {
+        return players;
+    }
+
+
+    
 }
