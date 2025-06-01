@@ -16,7 +16,7 @@ Dealer will recieve two cards from the top of the deck, one face down and one fa
 Player will recieve a prompt asking for a bet amount ranging from 0 to the amount of remaining money the player has
 
 Players shall play rounds in clockwise order. 
-The dealer shall player his turn last.
+The dealer shall play his turn last.
 
 ### Play Round
 Each player shall recieve 2 cards from the top of the deck
