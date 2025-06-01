@@ -63,8 +63,8 @@ public class Game {
     public void startGame() {
         io.println("Welcome to Blackjack");
         initGame();
-
-        // everything from here to the next comment is stuff i might move to a different function maybe
+        io.println(shoe.toString());
+        //
 
         shoe.shuffle();
         playerList.dealCards(shoe);
@@ -72,9 +72,56 @@ public class Game {
         if (checkBlackjack()) {
             return;
         }
-        //
 
-        io.println(shoe.toString());
+        for (Player p : playerList.getPlayerList()) {
+            playerTurn(p);
+        }
+
+        
+        
+       
+        // 
+
+    }
+
+    // TODO: make function that accepts input of player. if cpu == true, play turn for them. if cpu == false, prompt user to hit or stand
+
+    public void playerTurn(Player player) {
+        
+        // if the player is a cpu, the player will continue drawing cards until they bust or win.
+        if (player.isCpu()) {
+            while ((player.getHandValue() < playerList.getHighestHand()) ) {
+                playerList.drawCard(shoe, player);
+                if (checkBlackjack()) {
+                    return;
+                }
+            }
+        }
+        // if the player is not a cpu, prompt the user to hit or stand.
+        else {
+            io.println(player.getHand().toString());
+            Scanner hitOrStandScanner = new Scanner(System.in);
+            System.out.println("Hit or Stand");
+            String hitOrStand = hitOrStandScanner.nextLine(); 
+            hitOrStandScanner.close();
+
+            while ((player.isBust() != true)) {
+                if (hitOrStand.toLowerCase() == "hit")
+                {
+                    player.giveCard(shoe.draw());
+                    if (checkBlackjack()) {
+                    return;
+                    }
+                }
+                else if (hitOrStand.toLowerCase() == "stand") {
+                    return;
+                }
+                else {
+                    System.out.println("Error, must input Hit or Stand");
+                    return;
+                }
+            }
+        }
     }
 
     /* Pseudocode
