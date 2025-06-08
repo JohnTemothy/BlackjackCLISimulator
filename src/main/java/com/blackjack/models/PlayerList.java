@@ -27,7 +27,7 @@ public class PlayerList {
         int noCards = shoe.getNoCards();
         int playerCount = players.size();
 
-        if (2 * playerCount <= noCards) {
+        if (2 * playerCount > noCards) {
             throw new IllegalStateException("Not enough cards to deal");
         }
 

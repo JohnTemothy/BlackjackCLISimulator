@@ -63,8 +63,8 @@ public class Game {
     public void startGame() {
         io.println("Welcome to Blackjack");
         initGame();
-        io.println(shoe.toString());
-        //
+        //io.println(shoe.toString());
+        
 
         shoe.shuffle();
         playerList.dealCards(shoe);
