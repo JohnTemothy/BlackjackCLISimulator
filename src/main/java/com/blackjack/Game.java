@@ -24,13 +24,20 @@ public class Game {
      * TODO: How can we add any number of additional CPU players? Should there be a limit?
      */
     public void initGame() {
-        shoe = new Shoe(2);
+
+        System.out.println("Enter number of players: ");               // Allow for user input to set number of players
+        String numberOfPlayers = io.getInput();                          //TODO: make sure only numbers can be input from range 1-4
+        int numberOfShoes = Integer.parseInt(numberOfPlayers);
+
+        shoe = new Shoe(numberOfShoes);
         playerList = new PlayerList();
 
-        System.out.println("Enter username");               // Allow for user input to set their username
-        String playerName = io.getInput();
-
-        playerList.addPlayer(new Player(playerName, false)); //Maybe make like a limit or checks incase username is too long or username is nothing
+        for (int i = 1; i <= (numberOfShoes); i++) {                            //Maybe make like a limit or checks incase username is too long or username is nothing
+            System.out.println("Enter Player " + i + " username : ");                // Allow for user input to set their username
+            String playerName = io.getInput();
+            playerList.addPlayer(new Player(playerName, false));
+        }
+        
         playerList.addPlayer(new Player("Dealer", true));
     }
 
