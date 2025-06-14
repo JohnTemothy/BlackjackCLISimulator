@@ -51,8 +51,9 @@ public class PlayerList {
         if (noCards < 1) {
             throw new IllegalStateException("Not enough cards to deal");
         }
-
-        player.giveCard(shoe.draw());
+        Card drawnCard = shoe.draw();
+        System.out.println(player.getName() + " drew " + drawnCard.toString());
+        player.giveCard(drawnCard);
     }
 
     /**
@@ -63,7 +64,7 @@ public class PlayerList {
 
 
         for (Player p : players) {
-            if ((p.getHandValue() > highestHandValue) && (p.isBust() == false)) {
+            if ((p.getHandValue() > highestHandValue) && (!p.isBust())) {
                 highestHandValue = p.getHandValue();
             }
         }
@@ -71,13 +72,44 @@ public class PlayerList {
         return highestHandValue;
     }
 
+    /**
+     * Iterates through the player list, returning the player with highest hand value that is not a bust.
+     */
+    public List<Player> getHighestHandPlayers(int highestHandValue) {
+        List<Player> winningPlayers;
+        winningPlayers = new ArrayList<>();
+
+        for (Player p : players) {
+            if (p.getHandValue() == highestHandValue){
+                winningPlayers.add(p);
+            }
+        }
+
+        return winningPlayers;
+    }
+
+    
+
     /*
      * creates and returns list of players who's hands equal the value of 21 
      */
-    public List<String> isBlackjackPlayerList() {
+    public List<String> is21List() {
+        List<String> winners = new ArrayList<String>();
+        for (Player p : players) {
+            if (p.is21()) {
+                winners.add(p.getName());
+            }
+        }
+        return winners;
+    }
+
+    /*
+     * creates and returns list of players who's hands are a blackjack
+     */
+    public List<String> isBlackjackList() {
         List<String> blackjackWinners = new ArrayList<String>();
         for (Player p : players) {
-            if (p.isBlackjack()) {
+            if (p.is21() && (p.getHand().size() == 2)) {
                 blackjackWinners.add(p.getName());
             }
         }

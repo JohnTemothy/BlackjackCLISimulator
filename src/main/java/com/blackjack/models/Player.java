@@ -1,5 +1,6 @@
 package com.blackjack.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -9,8 +10,13 @@ public class Player {
     private boolean cpu;
 
     public Player(final String name, final boolean cpu) {
+        this(name, cpu, new ArrayList<>());
+    }
+
+    public Player(final String name, final boolean cpu, final List<Card> hand) {
         this.name = name;
         this.cpu = cpu;
+        this.hand = hand;
     }
 
     /**
@@ -31,7 +37,7 @@ public class Player {
      *
      * @return True if blackjack
      */
-     public boolean isBlackjack() {
+     public boolean is21() {
         int valueCount = 0;
         for (Card c : hand) {
             valueCount = valueCount + c.getRank().getValue();
