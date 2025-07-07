@@ -20,7 +20,6 @@ public class Game {
     }
 
     /*
-     * TODO: How can be insert any number of decks into the shoe?
      * TODO: How can we add any number of additional CPU players? Should there be a limit?
      */
     public void initGame() {
@@ -32,7 +31,7 @@ public class Game {
         shoe = new Shoe(numberOfShoes);
         playerList = new PlayerList();
 
-        for (int i = 1; i <= (numberOfShoes); i++) {                            //Maybe make like a limit or checks incase username is too long or username is nothing
+        for (int i = 1; i <= (numberOfShoes); i++) {                            //TODO: make a limit or checks incase username is too long or username is nothing
             System.out.println("Enter Player " + i + " username : ");                // Allow for user input to set their username
             String playerName = io.getInput();
             playerList.addPlayer(new Player(playerName, false));
@@ -41,40 +40,64 @@ public class Game {
         playerList.addPlayer(new Player("Dealer", true));
     }
 
-    public Boolean checkWinner() {
 
-        //creates list of players with hand value > 21
+
+
+
+    public Boolean checkWinner() {                  //TODO: redo logic of checkWinner function so that you will only compare player's decks with dealer's deck
+
+        List<Player> highestHandList = playerList.getHighestHandPlayers(playerList.getHighestHand());
+        List<Player> winnerList = playerList.getHigherHandThanDealer(playerList.getDealerHand());
+        List<Player> bustedList = playerList.isBustPlayerList();
+
+        //creates list of players with hand value = 21
         List<String> listOf21s = playerList.is21List();
 
-        //if there is a single blackjack, print out the winner
+        /*if there is a single blackjack, print out the winner
         if (playerList.isBlackjackList().size() == 1) {
             System.out.println(playerList.isBlackjackList().get(0) + " wins with a blackjack!");
             return true;
-        }
-
-        // if there is a single 21, print out winner
-        if (listOf21s.size() == 1) {
-            System.out.println(listOf21s.get(0) + " wins!");
-            return true;
-        }
+        }*/
 
         //if everyone busted
-        if (playerList.isBustPlayerList().size() == playerList.getPlayerList().size()){
+        if (bustedList.size() == playerList.getPlayerList().size()){
             System.out.println("Everyone busted! Tie!");
         }
 
-        // iterate through the list of scores until you find the highest
-        List<Player> winnerList = playerList.getHighestHandPlayers(playerList.getHighestHand());
-        if (winnerList.size() > 1) {
-            io.println("Tie!");
+        //TODO: if only dealer busts
+        if (bustedList.size() == 1 && (checkForDealer(playerList.isBustPlayerList()))){
+            System.out.println("Dealer busted! Everyone wins!");
+        }
+        //TODO: if dealer and another person busts
+
+
+        // iterate through the list of scores until you find the highest TODO: if dealer is the highest, only dealer wins. If multiple people are higher than the dealer, all of those people win
+
+        //In the case that dealer wins
+        if ((highestHandList.size() == 1) && checkForDealer(highestHandList)) {
+            io.println( " Dealer wins!");
+        }
+        //In the case that there is a person with the same hand value as the dealer
+        else if ((highestHandList.size() > 1) && checkForDealer(highestHandList)) {
+            
+            io.println("Tie between ");
+            for (Player p : highestHandList) {
+                //TODO: Make this all in one line
+                io.println(p.getName().toString() + " ");
+            }
             return true;
         }
-        else if (winnerList.size() == 1){
-            io.println(winnerList.get(0).getName().toString() + " wins with the cards " + winnerList.get(0).getHand().toString());
+        else if (winnerList.size() >= 1){
+            for (Player p : winnerList) {
+                io.println(p.getName().toString() + " wins with the cards " + highestHandList.get(0).getHand().toString());
+            }
             return true;
         }
         return false;
     }
+
+
+
 
 
     public void startGame() {
@@ -91,9 +114,7 @@ public class Game {
             playerTurn(p);
         }
         checkWinner();
-        
-        
-       
+
 
     }
 
@@ -148,6 +169,17 @@ public class Game {
                 System.out.println( player.getName() + " busts!");
             }
         }
+    }
+
+
+    //TODO: Make function that iterates through a list and returns true if dealer is present inside said list
+    public boolean checkForDealer(List<Player> players) {
+        for (Player p : players){
+            if (p.getName().toLowerCase().equals("dealer")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
