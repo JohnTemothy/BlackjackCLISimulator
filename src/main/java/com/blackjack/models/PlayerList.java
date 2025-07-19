@@ -73,14 +73,46 @@ public class PlayerList {
     }
 
     /**
-     * Iterates through the player list, returning the player with highest hand value that is not a bust.
+     * Iterates through the player list, returning the dealer's hand value.
+     */
+    public int getDealerHand() {
+        int dealerHandValue = 0;
+
+
+        for (Player p : players) {
+            if (p.getName().toLowerCase().equals("dealer") && (!p.isBust())) {
+                dealerHandValue = p.getHandValue();
+            }
+        }
+
+        return dealerHandValue;
+    }
+
+    /**
+     * Iterates through the player list, returning a list of players with highest hand value that is not a bust.
      */
     public List<Player> getHighestHandPlayers(int highestHandValue) {
         List<Player> winningPlayers;
         winningPlayers = new ArrayList<>();
 
         for (Player p : players) {
-            if (p.getHandValue() == highestHandValue){
+            if (p.getHandValue() == highestHandValue && (!p.isBust())){
+                winningPlayers.add(p);
+            }
+        }
+
+        return winningPlayers;
+    }
+
+    /**
+     * TODO: Iterates through the player list, returning a list of players with higher hand values than the dealer that is not a bust.
+     */
+    public List<Player> getHigherHandThanDealer(int dealerHandValue) {
+        List<Player> winningPlayers;
+        winningPlayers = new ArrayList<>();
+
+        for (Player p : players) {
+            if (p.getHandValue() > dealerHandValue && (!p.isBust())){
                 winningPlayers.add(p);
             }
         }
@@ -119,11 +151,11 @@ public class PlayerList {
     /*
      * creates and returns list of players who's hands exceed value of 21 
      */
-    public List<String> isBustPlayerList() {
-        List<String> bustedPlayers = new ArrayList<String>();
+    public List<Player> isBustPlayerList() {
+        List<Player> bustedPlayers = new ArrayList<Player>();
         for (Player p : players) {
             if (p.isBust()) {
-                bustedPlayers.add(p.getName());
+                bustedPlayers.add(p);
             }
         }
         return bustedPlayers;
